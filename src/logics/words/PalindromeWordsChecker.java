@@ -1,6 +1,7 @@
 package logics.words;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -14,7 +15,13 @@ public class PalindromeWordsChecker {
         do {
             System.out.println();
             System.out.print("Enter Word : ");
-            scan = scanner.next();
+            try {
+                scan = scanner.nextLine().toLowerCase();
+            } catch (Exception e){
+                scan = null;
+                System.err.println("Error in read Line :"+e.getMessage());
+            }
+            if(scan.isEmpty()||scan.length()<2||scan.isBlank()) continue;
             flag = true;
             wordCheck = new ArrayList<>(
                     scan.chars()
@@ -34,6 +41,5 @@ public class PalindromeWordsChecker {
                 System.err.println(scan+" is NOT palindrome word");
             }
         } while(!scanner.equals("q"));
-        System.out.println(wordCheck);
     }
 }
